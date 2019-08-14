@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"go.uber.org/cadence/activity"
@@ -25,17 +26,22 @@ func init() {
 
 // Workflow workflow decider
 func Workflow(ctx workflow.Context, name string) error {
-	ao := workflow.ActivityOptions{
-		ScheduleToStartTimeout: time.Minute,
-		StartToCloseTimeout:    time.Minute,
-		HeartbeatTimeout:       time.Second * 20,
+	ao := workflow.LocalActivityOptions{
+		ScheduleToCloseTimeout: time.Hour * 10,
+		//RetryPolicy: &cadence.RetryPolicy{
+		//	InitialInterval:    time.Second,
+		//	BackoffCoefficient: 2.0,
+		//	MaximumInterval:    time.Minute,
+		//	ExpirationInterval: time.Minute * 30,
+		//	MaximumAttempts:    0,
+		//},
 	}
-	ctx = workflow.WithActivityOptions(ctx, ao)
+	ctx = workflow.WithLocalActivityOptions(ctx, ao)
 
 	logger := workflow.GetLogger(ctx)
 	logger.Info("helloworld workflow started")
 	var helloworldResult string
-	err := workflow.ExecuteActivity(ctx, helloworldActivity, name).Get(ctx, &helloworldResult)
+	err := workflow.ExecuteLocalActivity(ctx, helloworldActivity, name).Get(ctx, &helloworldResult)
 	if err != nil {
 		logger.Error("Activity failed.", zap.Error(err))
 		return err
@@ -49,5 +55,6 @@ func Workflow(ctx workflow.Context, name string) error {
 func helloworldActivity(ctx context.Context, name string) (string, error) {
 	logger := activity.GetLogger(ctx)
 	logger.Info("helloworld activity started")
-	return "Hello " + name + "!", nil
+	time.Sleep(time.Hour)
+	return "", fmt.Errorf("error for retry")
 }
