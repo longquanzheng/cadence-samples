@@ -25,8 +25,8 @@ func startWorkflow(h *common.SampleHelper) {
 	workflowOptions := client.StartWorkflowOptions{
 		ID:                              "helloworld_" + uuid.New(),
 		TaskList:                        ApplicationName,
-		ExecutionStartToCloseTimeout:    time.Minute,
-		DecisionTaskStartToCloseTimeout: time.Minute,
+		ExecutionStartToCloseTimeout:    time.Minute * 100,
+		DecisionTaskStartToCloseTimeout: time.Second * 5,
 	}
 	h.StartWorkflow(workflowOptions, Workflow, "Cadence")
 }
