@@ -28,7 +28,7 @@ func retryWorkflow(ctx workflow.Context) error {
 			InitialInterval:          time.Second,
 			BackoffCoefficient:       2.0,
 			MaximumInterval:          time.Minute,
-			ExpirationInterval:       time.Minute * 5,
+			//ExpirationInterval:       time.Minute * 5,
 			MaximumAttempts:          5,
 			NonRetriableErrorReasons: []string{"bad-error"},
 		},

@@ -3,7 +3,7 @@ module github.com/uber-common/cadence-samples
 go 1.12
 
 require (
-	github.com/golang/mock v1.3.1-0.20190508161146-9fa652df1129
+	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/pborman/uuid v0.0.0-20180906182336-adf5a7427709
@@ -12,7 +12,7 @@ require (
 	github.com/prometheus/procfs v0.0.3 // indirect
 	github.com/stretchr/testify v1.3.0
 	github.com/uber-go/tally v3.3.11+incompatible
-	go.uber.org/cadence v0.13.4
+	go.uber.org/cadence v0.15.0
 	go.uber.org/net/metrics v1.1.0 // indirect
 	go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee // indirect
 	go.uber.org/yarpc v1.42.0
