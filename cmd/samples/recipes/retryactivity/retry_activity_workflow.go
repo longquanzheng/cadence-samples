@@ -23,7 +23,7 @@ func retryWorkflow(ctx workflow.Context) error {
 	ao := workflow.ActivityOptions{
 		ScheduleToStartTimeout: time.Minute,
 		StartToCloseTimeout:    time.Minute * 10,
-		HeartbeatTimeout:       time.Second * 10,
+		HeartbeatTimeout:       time.Second * 3,
 		RetryPolicy: &cadence.RetryPolicy{
 			InitialInterval:          time.Second,
 			BackoffCoefficient:       2.0,
